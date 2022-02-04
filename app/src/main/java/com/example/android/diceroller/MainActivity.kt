@@ -6,10 +6,14 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
+/**
+ * This activity allows the user to roll a dice and view the result
+ * on the screen.
+ */
 class MainActivity : AppCompatActivity() {
 
-    lateinit var diceImage : ImageView
-    lateinit var diceImage2 : ImageView
+    lateinit var diceImage: ImageView
+    lateinit var diceImage2: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,6 +21,8 @@ class MainActivity : AppCompatActivity() {
 
         diceImage = findViewById(R.id.dice_image)
         diceImage2 = findViewById(R.id.dice_image2)
+
+        val dice = Dice(6)
 
         val rollButton: Button = findViewById(R.id.roll_button)
         rollButton.setOnClickListener { rollDice() }
@@ -32,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         diceImage2.setImageResource(getRandomDiceImage())
     }
 
-    private fun getRandomDiceImage() : Int {
+    private fun getRandomDiceImage(): Int {
         return when ((1..6).random()) {
             1 -> R.drawable.dice_1
             2 -> R.drawable.dice_2
@@ -46,5 +52,15 @@ class MainActivity : AppCompatActivity() {
     private fun reset() {
         diceImage.setImageResource(R.drawable.dice_1)
         diceImage2.setImageResource(R.drawable.dice_1)
+    }
+}
+
+class Dice(private val numSides: Int) {
+
+    /**
+     * Roll the dice and update the screen with the result.
+     */
+    fun roll(): Int {
+        return (1..numSides).random()
     }
 }
