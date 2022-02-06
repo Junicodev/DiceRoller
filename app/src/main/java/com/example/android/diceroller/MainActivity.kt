@@ -15,6 +15,9 @@ class MainActivity : AppCompatActivity() {
     lateinit var diceImage: ImageView
     lateinit var diceImage2: ImageView
 
+    /**
+     * This method is called when the Activity is created.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -22,9 +25,9 @@ class MainActivity : AppCompatActivity() {
         diceImage = findViewById(R.id.dice_image)
         diceImage2 = findViewById(R.id.dice_image2)
 
-        val dice = Dice(6)
-
+        // Find the Button in the layout
         val rollButton: Button = findViewById(R.id.roll_button)
+        // Set a click listener on the button to roll the dice when the user taps the button
         rollButton.setOnClickListener { rollDice() }
 
         val resetButton: Button = findViewById(R.id.reset_button)
@@ -32,14 +35,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun rollDice() {
+        // Create new Dice object with 6 sides and roll it
+        val dice = Dice(6)
+        val dice2 = Dice(6)
+        val diceRoll = dice.roll()
+
         Toast.makeText(this, "button clicked", Toast.LENGTH_SHORT).show()
 
-        diceImage.setImageResource(getRandomDiceImage())
-        diceImage2.setImageResource(getRandomDiceImage())
+        diceImage.setImageResource(getRandomDiceImage(dice))
+        diceImage2.setImageResource(getRandomDiceImage(dice2))
     }
 
-    private fun getRandomDiceImage(): Int {
-        return when ((1..6).random()) {
+    private fun getRandomDiceImage(dice: Dice): Int {
+        return when (dice.roll()) {
             1 -> R.drawable.dice_1
             2 -> R.drawable.dice_2
             3 -> R.drawable.dice_3
