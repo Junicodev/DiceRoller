@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         resetButton.setOnClickListener { reset() }
     }
 
+
     private fun rollDice() {
         // Create new Dice object with 6 sides and roll it
         val dice = Dice(6)
